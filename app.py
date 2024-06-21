@@ -26,7 +26,7 @@ def create_app(database_name, testing=False):
     toolbar = DebugToolbarExtension(app)
 
     #app.app_context().push()
-    connect_db(app)
+    #connect_db(app)
 
 
     ##############################################################################
