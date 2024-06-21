@@ -26,7 +26,7 @@ def create_app(database_name, testing=False):
     toolbar = DebugToolbarExtension(app)
 
     #app.app_context().push()
-    #connect_db(app)
+    connect_db(app)
 
 
     ##############################################################################
@@ -364,6 +364,12 @@ def create_app(database_name, testing=False):
                             .filter(Message.user_id.in_(user_ids))
                             .order_by(Message.timestamp.desc())
                             .limit(100)
+                            .all())
+                messages += (Message
+                            .query
+                            .filter(Message.user_id.not_in(user_ids))
+                            .order_by(Message.timestamp.desc())
+                            .limit(100 - len(messages))
                             .all())
             else:
                 messages = (Message
